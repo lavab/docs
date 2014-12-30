@@ -247,37 +247,27 @@ There are two user events that you can receive:
 | id   | string | ID of the received message                            |
 | name | string | Subject of the received message  (might be encrypted) |
 
-# Authentication
+# Accounts
 
-> To authorize, use this code:
+## Register using an invite
 
-```http
-require 'kittn'
+## Register with email confirmation
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+## Queue for beta
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+## Reserve an username for beta
 
-> Make sure to replace `meowmeowmeow` with your API key.
+## Get own account information
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+## Update account data
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+## Delete own account
 
-`Authorization: meowmeowmeow`
+## Wipe account data
 
-<aside class="notice">
-You must replace `meowmeowmeow` with your personal API key.
-</aside>
+# Contacts
 
-# Kittens
-
-## Get All Kittens
+## List all contacts
 
 ```http
 require 'kittn'
@@ -288,27 +278,27 @@ api.kittens.get
 
 ```shell
 curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+-H "Authorization: meowmeowmeow"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 [
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
+    {
+        "id": 1,
+        "name": "Fluffums",
+        "breed": "calico",
+        "fluffiness": 6,
+        "cuteness": 7
+    },
+    {
+        "id": 2,
+        "name": "Isis",
+        "breed": "unknown",
+        "fluffiness": 5,
+        "cuteness": 10
+    }
 ]
 ```
 
@@ -329,7 +319,9 @@ available | true | If set to false, the result will include kittens that have al
 Remember — a happy kitten is an authenticated kitten!
 </aside>
 
-## Get a Specific Kitten
+## Create a new contact
+
+## Get a contact
 
 ```ruby
 require 'kittn'
@@ -347,18 +339,18 @@ api.kittens.get(2)
 
 ```shell
 curl "http://example.com/api/kittens/3"
-  -H "Authorization: meowmeowmeow"
+-H "Authorization: meowmeowmeow"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "id": 2,
+    "name": "Isis",
+    "breed": "unknown",
+    "fluffiness": 5,
+    "cuteness": 10
 }
 ```
 
@@ -375,3 +367,39 @@ This endpoint retrieves a specific kitten.
 Parameter | Description
 --------- | -----------
 ID | The ID of the cat to retrieve
+
+## Update a contact
+
+## Delete a contact
+
+# Emails
+
+## List emails
+
+## Create a new email
+
+## Get an email
+
+## Delete an email
+
+# Keys
+
+## List keys assigned to an email
+
+## Get a key by ID
+
+## Upload a new key
+
+## Vote on a key
+
+# Labels
+
+# Threads
+
+# Tokens
+
+## Get current token info
+
+## Create a new token (sign in)
+
+## Delete a token (log out)
