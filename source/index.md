@@ -14,18 +14,57 @@ search: true
 
 # Introduction
 
+```http
+GET /v0/ HTTP/1.1
+User-Agent: LavaboomClient/1.0.0
+Accept: application/json
+Host: api.lavaboom.io
+```
+
+```shell
+curl "http://api.lavaboom.com/v0/"
+```
+
+```json
+{
+    "message": "Lavaboom API",
+    "docs_url": "http://lavaboom.readme.io/",
+    "version": "v0"
+}
+```
+
 Welcome to the Lavaboom API documentation. This is the APi used by the official Lavaboom web interface, so everything done there can be also performed via the API.
 
 There are multiple endpoints for you to use:
 
 | Name    | API version     | URL                         | Public |
 | ------- | --------------- | --------------------------- | ------ |
-| prod    | _(not running)_ | http://api.lavaboom.com/v1/ | Yes    |
+| prod    | _(not running)_ | http://api.lavaboom.com/v0/ | Yes    |
 | dev     | v0              | http://api.lavaboom.io/v0/  | No     |
 
 Please note that any non-production API request must contain a special `X-Lavaboom-Key` token to be authorized.
 
 # SockJS endpoint
+
+```http
+GET /v0/ws/info HTTP/1.1
+User-Agent: LavaboomClient/1.0.0
+Accept: application/json
+Host: api.lavaboom.io
+```
+
+```shell
+curl "http://api.lavaboom.com/v0/ws/info"
+```
+
+```json
+{
+    "websocket": true,
+    "cookie_needed": false,
+    "origins": ["*:*"],
+    "entropy": 0
+}
+```
 
 There are two ways to execute API requests:
 
@@ -56,6 +95,18 @@ sockjs-cli http://api.lavaboom.com/v0/ws << EOF
 }
 :quit
 EOF;
+```
+
+```http
+GET /v0/ws HTTP/1.1
+Websocket-Upgrade: goes here
+
+{
+    "type": "request",
+    "id": "123",
+    "method": "GET",
+    "path": "/"
+}
 ```
 
 ```json
@@ -104,6 +155,16 @@ sockjs-cli http://api.lavaboom.com/v0/ws << EOF
 EOF;
 ```
 
+```http
+GET /v0/ws HTTP/1.1
+Websocket-Upgrade: goes here
+
+{
+    "type": "subscribe",
+    "token": "valid token",
+}
+```
+
 ```json
 {
     "type": "subscribed"
@@ -117,6 +178,15 @@ sockjs-cli http://api.lavaboom.com/v0/ws << EOF
 }
 :quit
 EOF;
+```
+
+```http
+GET /v0/ws HTTP/1.1
+Websocket-Upgrade: goes here
+
+{
+    "type": "unsubscribe",
+}
 ```
 
 ```json
