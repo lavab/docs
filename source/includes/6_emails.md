@@ -1,4 +1,3 @@
-
 # Emails
 
 ## List emails
@@ -135,44 +134,44 @@ Host: api.lavaboom.io
             "schema": "email",
             "version_major": 1,
             "version_minor": 0
-            },
-            "status": "received"
-        }
+        },
+        "status": "received"
     }
-    ```
+}
+```
 
-    <aside class="notice">Requires authentication.</aside>
+<aside class="notice">Requires authentication.</aside>
 
-    ### Definition
+### Definition
 
-    `GET /emails/:id`
+`GET /emails/:id`
 
-    ### Description
+### Description
 
-    Gets a specified email.
+Gets a specified email.
 
-    ## Delete an email
+## Delete an email
 
-    ```http
-    DELETE /emails/<id> HTTP/1.1
-    User-Agent: LavaboomClient/1.0.0
-    Accept: application/json
-    Host: api.lavaboom.io
-    ```
+```http
+DELETE /emails/<id> HTTP/1.1
+User-Agent: LavaboomClient/1.0.0
+Accept: application/json
+Host: api.lavaboom.io
+```
 
-    ```json
-    {
-        "success": true,
-        "message": "Email successfully removed"
-    }
-    ```
+```json
+{
+    "success": true,
+    "message": "Email successfully removed"
+}
+```
 
-    <aside class="notice">Requires authentication.</aside>
+<aside class="notice">Requires authentication.</aside>
 
-    ### Definition
+### Definition
 
-    `DELETE /emails/:id`
+`DELETE /emails/:id`
 
-    ### Description
+### Description
 
-    Deletes a specified email.
+Deletes a specified email.

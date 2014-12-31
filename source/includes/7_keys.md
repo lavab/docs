@@ -87,7 +87,7 @@ User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
 Content-Type: application/json
-Content-Length: 23
+Content-Length: 47
 
 {
     "key": "<armor-encoded public PGP key>"
