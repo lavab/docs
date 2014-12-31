@@ -550,6 +550,8 @@ Host: api.lavaboom.io
 }
 ```
 
+<aside class="notice">Requires authentication.</aside>
+
 ### Definition
 
 `GET /contacts`
@@ -598,6 +600,8 @@ Content-Length: 175
 }
 ```
 
+<aside class="notice">Requires authentication.</aside>
+
 ### Definition
 
 `POST /contacts`
@@ -645,6 +649,8 @@ Host: api.lavaboom.io
 }
 ```
 
+<aside class="notice">Requires authentication.</aside>
+
 ### Definition
 
 `GET /contacts/:id`
@@ -687,6 +693,8 @@ Content-Length: 27
 }
 ```
 
+<aside class="notice">Requires authentication.</aside>
+
 ### Definition
 
 `PUT /contacts/:id`
@@ -721,6 +729,8 @@ Host: api.lavaboom.io
     "message": "Contact successfully removed"
 }
 ```
+
+<aside class="notice">Requires authentication.</aside>
 
 ### Definition
 
@@ -767,6 +777,8 @@ Host: api.lavaboom.io
 }
 ```
 
+<aside class="notice">Requires authentication.</aside>
+
 ### Definition
 
 `GET /emails`
@@ -807,6 +819,8 @@ Content-Length: 8
     "created": ["<id>"]
 }
 ```
+
+<aside class="notice">Requires authentication.</aside>
 
 ### Definition
 
@@ -868,6 +882,8 @@ Host: api.lavaboom.io
 }
 ```
 
+<aside class="notice">Requires authentication.</aside>
+
 ### Definition
 
 `GET /emails/:id`
@@ -891,6 +907,8 @@ Host: api.lavaboom.io
     "message": "Email successfully removed"
 }
 ```
+
+<aside class="notice">Requires authentication.</aside>
 
 ### Definition
 
