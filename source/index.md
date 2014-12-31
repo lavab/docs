@@ -33,14 +33,14 @@ curl "http://api.lavaboom.com/v0/"
 }
 ```
 
-Welcome to the Lavaboom API documentation. This is the APi used by the official Lavaboom web interface, so everything done there can be also performed via the API.
+Welcome to the Lavaboom API documentation. This is the API used by the official Lavaboom web interface, so everything done there can be also performed via the API.
 
 There are multiple endpoints for you to use:
 
-| Name    | API version     | URL                         | Public |
-| ------- | --------------- | --------------------------- | ------ |
-| prod    | _(not running)_ | http://api.lavaboom.com/v0/ | Yes    |
-| dev     | v0              | http://api.lavaboom.io/v0/  | No     |
+| Name | API version     | URL                         | Public |
+|:-----|:----------------|:----------------------------|:-------|
+| prod | _(not running)_ | http://api.lavaboom.com/v0/ | Yes    |
+| dev  | v0              | http://api.lavaboom.io/v0/  | No     |
 
 Please note that any non-production API request must contain a special `X-Lavaboom-Key` token to be authorized.
 
@@ -78,7 +78,7 @@ The endpoint is available at `/ws` on every API.
 Each message sent through the SockJS connection is encoded using JSON. You can identify its kind by accessing its `type` key.
 
 | Request type | Result type  | Description                   |
-| ------------ | ------------ | ----------------------------- |
+|:-------------|:-------------|:------------------------------|
 | request      | result       | Executes a HTTP request       |
 | subscribe    | subscribed   | Subscribes to user events     |
 | unsubscribe  | unsubscribed | Unsubscribes from user events |
@@ -126,7 +126,7 @@ You can perform HTTP requests through the SockJS endpoint using `request` messag
 ### Request message fields
 
 | Key     | Type             | Description                              |
-| ------- | ---------------- | ---------------------------------------- |
+|:--------|:-----------------|:-----------------------------------------|
 | id      | string           | ID returned with the result message      |
 | method  | string           | Request method. GET, POST, PUT or DELETE |
 | path    | string           | Path to query (for example `/tokens`)    |
@@ -136,7 +136,7 @@ You can perform HTTP requests through the SockJS endpoint using `request` messag
 ### Result message fields
 
 | Key     | Type             | Description                         |
-| ------- | ---------------- | ----------------------------------- |
+|:--------|:-----------------|:------------------------------------|
 | id      | string           | ID passed with the request message  |
 | status  | int              | Status of the request               |
 | headers | map\<string\>any | Headers generated with the response |
@@ -200,7 +200,7 @@ In order to listen to events, you have to "log in" to the account using the `sub
 ### Subscribe message fields (request)
 
 | Key   | Type   | Description                 |
-| ----- | ------ | --------------------------- |
+|:------|:-------|:----------------------------|
 | token | string | Authentication token to use |
 
 ### Subscribed message fields (response)
@@ -236,14 +236,14 @@ There are two user events that you can receive:
 ### Delivery fields
 
 | Key  | Type   | Description                                           |
-| ---- | ------ | ----------------------------------------------------- |
+|:-----|:-------|:------------------------------------------------------|
 | id   | string | ID of the delivered message                           |
 | name | string | Subject of the delivered message (might be encrypted) |
 
 ### Receipt fields
 
 | Key  | Type   | Description                                           |
-| ---- | ------ | ----------------------------------------------------- |
+|:-----|:-------|:------------------------------------------------------|
 | id   | string | ID of the received message                            |
 | name | string | Subject of the received message  (might be encrypted) |
 
@@ -251,11 +251,85 @@ There are two user events that you can receive:
 
 ## Register using an invite
 
+### Definition
+
+`POST /accounts`
+
+### Description
+
+The `invite` token is generated either by a Lavaboom employee or a premium user.
+Such request results in an instant creation of an account, that doesn't require
+any confirmation.
+
+### Fields
+
+| Key      | Type   | Description                                                                                  |
+|:---------|:-------|:---------------------------------------------------------------------------------------------|
+| username | string | The desired username for the account.                                                        |
+| password | string | Chosen password, hashed using SHA3-256. It's checked against 10000 most used passwords list. |
+| token    | string | The invite token.                                                                            |
+
 ## Register with email confirmation
+
+<aside class="warning">Verification emails are not implemented yet!</aside>
+
+### Definition
+
+`POST /accounts`
+
+### Description
+
+A user registers on the "Sign up" page. The account is created, but it's marked
+as unverified. An email is sent to the `alt_email` address that contains a link
+to the Lavaboom web client, which verifies the account and signs in the user.
+
+### Fields
+
+| Key       | Type   | Description                                                                                  |
+|:----------|:-------|:---------------------------------------------------------------------------------------------|
+| alt_email | string | An email address to send the confirmation token to.                                          |
+| username  | string | The desired username for the account.                                                        |
+| password  | string | Chosen password, hashed using SHA3-256. It's checked against 10000 most used passwords list. |
 
 ## Queue for beta
 
-## Reserve an username for beta
+<aside class="warning">Invitation emails are not implemented yet!</aside>
+
+### Definition
+
+`POST /accounts`
+
+### Description
+
+During the closed beta, a user can request an invite to the service. An account
+isn't created, but the `alt_email` is appended to the queue. Then, when the
+user's turn comes, they get an email with an invitation token.
+
+### Fields
+
+| Key       | Type   | Description                                       |
+|:----------|:-------|:--------------------------------------------------|
+| alt_email | string | An email address to send the invitation token to. |
+
+## Reserve a username for beta
+
+<aside class="warning">Username reservations might not be enforced in all cases.</aside>
+
+### Definition
+
+`POST /accounts`
+
+### Description
+
+If username reservations are enabled in the API, a user can also reserve
+an account name. Process is almost the same as in the queue process.
+
+### Fields
+
+| Key       | Type   | Description                                               |
+|:----------|:-------|:----------------------------------------------------------|
+| username  | string | The desired username that the user would like to reserve. |
+| alt_email | string | An email address to send the invitation token to.         |
 
 ## Get own account information
 
@@ -310,10 +384,10 @@ This endpoint retrieves all kittens.
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+| Parameter    | Default | Description                                                                      |
+|:-------------|:--------|:---------------------------------------------------------------------------------|
+| include_cats | false   | If set to true, the result will also include cats.                               |
+| available    | true    | If set to false, the result will include kittens that have already been adopted. |
 
 <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
@@ -364,9 +438,9 @@ This endpoint retrieves a specific kitten.
 
 ### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the cat to retrieve
+| Parameter | Description                   |
+|:----------|:------------------------------|
+| ID        | The ID of the cat to retrieve |
 
 ## Update a contact
 
