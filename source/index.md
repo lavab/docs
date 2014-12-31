@@ -523,97 +523,212 @@ Removes all account's dependent objects.
 ## List all contacts
 
 ```http
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+GET /contacts HTTP/1.1
+User-Agent: LavaboomClient/1.0.0
+Accept: application/json
+Host: api.lavaboom.io
 ```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-    {
-        "id": 1,
-        "name": "Fluffums",
-        "breed": "calico",
-        "fluffiness": 6,
-        "cuteness": 7
-    },
-    {
-        "id": 2,
-        "name": "Isis",
-        "breed": "unknown",
-        "fluffiness": 5,
-        "cuteness": 10
-    }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/kittens`
-
-### Query Parameters
-
-| Parameter    | Default | Description                                                                      |
-|:-------------|:--------|:---------------------------------------------------------------------------------|
-| include_cats | false   | If set to true, the result will also include cats.                               |
-| available    | true    | If set to false, the result will include kittens that have already been adopted. |
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Create a new contact
-
-## Get a contact
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-> The above command returns JSON structured like this:
 
 ```json
 {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "success": true,
+    "contacts": [
+        {
+            "id": "<id>",
+            "date_created": "<RFC3339Nano date>",
+            "date_modified": "<RFC3339Nano date>",
+            "name": "John Doe",
+            "owner": "<account id>",
+            "encoding": "json",
+            "pgp_fingerprints": ["<PGP fingerprint>"],
+            "data": "<PGP-encoded payload>",
+            "schema": "email",
+            "version_major": 1,
+            "version_minor": 0
+        }
+    ]
 }
 ```
 
-This endpoint retrieves a specific kitten.
+### Definition
 
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
+`GET /contacts`
 
-### HTTP Request
+### Description
 
-`GET http://example.com/kittens/<ID>`
+Returns all contacts owned by the user.
 
-### URL Parameters
+## Create a new contact
 
-| Parameter | Description                   |
-|:----------|:------------------------------|
-| ID        | The ID of the cat to retrieve |
+```http
+GET /contacts HTTP/1.1
+User-Agent: LavaboomClient/1.0.0
+Accept: application/json
+Host: api.lavaboom.io
+Content-Type: application/json
+Content-Length: 175
+
+{
+    "data": "<encrypted PGP blob>",
+    "name": "John Doe",
+    "encoding": "json",
+    "version_major": 1,
+    "version_minor": 0,
+    "pgp_fingerprints": ["fingerprint"]
+}
+```
+
+```json
+{
+    "success": true,
+    "message": "A new contact was successfully created",
+    "contact": {
+        "id": "<id>",
+        "date_created": "<RFC3339Nano date>",
+        "date_modified": "<RFC3339Nano date>",
+        "name": "John Doe",
+        "owner": "<account id>",
+        "encoding": "json",
+        "pgp_fingerprints": ["<PGP fingerprint>"],
+        "data": "<PGP-enrypted blob>",
+        "schema": "email",
+        "version_major": 1,
+        "version_minor": 0
+    }
+}
+```
+
+### Definition
+
+`POST /contacts`
+
+### Description
+
+Creates a new contact, which is an encrypted blob of data.
+
+### Fields
+
+| Key              | Type           | Description                                                               |
+|:-----------------|:---------------|:--------------------------------------------------------------------------|
+| data             | string         | PGP-encrypted contact data                                                |
+| name             | string         | Unencrypted name of the contact                                           |
+| encoding         | string         | Encrypted blob's encoding (for example `json`)                            |
+| version_major    | int            | Major version of the encrypted blob                                       |
+| version_minor    | int            | Minor version of the data, different minor versions should be compatible. |
+| pgp_fingerprints | list\<string\> | PGP fingerprints used to encode a contact                                 |
+
+## Get a contact
+
+```http
+GET /contacts/<id> HTTP/1.1
+User-Agent: LavaboomClient/1.0.0
+Accept: application/json
+Host: api.lavaboom.io
+```
+
+```json
+{
+    "success": true,
+    "contact": {
+        "id": "<id>",
+        "date_created": "<RFC3339Nano date>",
+        "date_modified": "<RFC3339Nano date>",
+        "name": "John Doe",
+        "owner": "<account id>",
+        "encoding": "json",
+        "pgp_fingerprints": ["<PGP fingerprint>"],
+        "data": "<PGP-encoded payload>",
+        "schema": "email",
+        "version_major": 1,
+        "version_minor": 0
+    }
+}
+```
+
+### Definition
+
+`GET /contacts/:id`
+
+### Description
+
+Retrieves a contact by its ID.
 
 ## Update a contact
 
+```http
+PUT /contacts/<id> HTTP/1.1
+User-Agent: LavaboomClient/1.0.0
+Accept: application/json
+Host: api.lavaboom.io
+Content-Type: application/json
+Content-Length: 27
+
+{
+    "name": "John Does"
+}
+```
+
+```json
+{
+    "success": true,
+    "contact": {
+        "id": "<id>",
+        "date_created": "<RFC3339Nano date>",
+        "date_modified": "<RFC3339Nano date>",
+        "name": "John Does",
+        "owner": "<account id>",
+        "encoding": "json",
+        "pgp_fingerprints": ["<PGP fingerprint>"],
+        "data": "<PGP-enrypted blob>",
+        "schema": "email",
+        "version_major": 1,
+        "version_minor": 0
+    }
+}
+```
+
+### Definition
+
+`PUT /contacts/:id`
+
+### Description
+
+Updates specified contact.
+
+### Fields
+
+| Key              | Type           | Description                                                               |
+|:-----------------|:---------------|:--------------------------------------------------------------------------|
+| data             | string         | PGP-encrypted contact data                                                |
+| name             | string         | Unencrypted name of the contact                                           |
+| encoding         | string         | Encrypted blob's encoding (for example `json`)                            |
+| version_major    | int            | Major version of the encrypted blob                                       |
+| version_minor    | int            | Minor version of the data, different minor versions should be compatible. |
+| pgp_fingerprints | list\<string\> | PGP fingerprints used to encode a contact                                 |
+
 ## Delete a contact
+
+```http
+DELETE /contacts/<id> HTTP/1.1
+User-Agent: LavaboomClient/1.0.0
+Accept: application/json
+Host: api.lavaboom.io
+```
+
+```json
+{
+    "success": true,
+    "message": "Contact successfully removed"
+}
+```
+
+### Definition
+
+`DELETE /contacts/:id`
+
+### Description
+
+Deletes specified contact.
 
 # Emails
 
