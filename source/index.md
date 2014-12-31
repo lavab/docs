@@ -15,14 +15,14 @@ search: true
 # Introduction
 
 ```http
-GET /v0/ HTTP/1.1
+GET / HTTP/1.1
 User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
 ```
 
 ```shell
-curl "http://api.lavaboom.com/v0/"
+curl "http://api.lavaboom.com/"
 ```
 
 ```json
@@ -37,24 +37,24 @@ Welcome to the Lavaboom API documentation. This is the API used by the official 
 
 There are multiple endpoints for you to use:
 
-| Name | API version     | URL                         | Public |
-|:-----|:----------------|:----------------------------|:-------|
-| prod | _(not running)_ | http://api.lavaboom.com/v0/ | Yes    |
-| dev  | v0              | http://api.lavaboom.io/v0/  | No     |
+| Name | API version     | URL                      | Public |
+|:-----|:----------------|:-------------------------|:-------|
+| prod | _(not running)_ | http://api.lavaboom.com/ | Yes    |
+| dev  | v0              | http://api.lavaboom.io/  | No     |
 
 Please note that any non-production API request must contain a special `X-Lavaboom-Key` token to be authorized.
 
 # SockJS endpoint
 
 ```http
-GET /v0/ws/info HTTP/1.1
+GET /ws/info HTTP/1.1
 User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
 ```
 
 ```shell
-curl "http://api.lavaboom.com/v0/ws/info"
+curl "http://api.lavaboom.com/ws/info"
 ```
 
 ```json
@@ -86,7 +86,7 @@ Each message sent through the SockJS connection is encoded using JSON. You can i
 ## Requests
 
 ```shell
-sockjs-cli http://api.lavaboom.com/v0/ws << EOF
+sockjs-cli http://api.lavaboom.com/ws << EOF
 {
     "type": "request",
     "id": "123",
@@ -98,7 +98,7 @@ EOF;
 ```
 
 ```http
-GET /v0/ws HTTP/1.1
+GET /ws HTTP/1.1
 Websocket-Upgrade: goes here
 
 {
@@ -146,7 +146,7 @@ You can perform HTTP requests through the SockJS endpoint using `request` messag
 ## Subscriptions
 
 ```shell
-sockjs-cli http://api.lavaboom.com/v0/ws << EOF
+sockjs-cli http://api.lavaboom.com/ws << EOF
 {
     "type": "subscribe",
     "token": "valid token",
@@ -156,7 +156,7 @@ EOF;
 ```
 
 ```http
-GET /v0/ws HTTP/1.1
+GET /ws HTTP/1.1
 Websocket-Upgrade: goes here
 
 {
@@ -172,7 +172,7 @@ Websocket-Upgrade: goes here
 ```
 
 ```shell
-sockjs-cli http://api.lavaboom.com/v0/ws << EOF
+sockjs-cli http://api.lavaboom.com/ws << EOF
 {
     "type": "unsubscribe",
 }
@@ -181,7 +181,7 @@ EOF;
 ```
 
 ```http
-GET /v0/ws HTTP/1.1
+GET /ws HTTP/1.1
 Websocket-Upgrade: goes here
 
 {
