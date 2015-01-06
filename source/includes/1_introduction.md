@@ -18,7 +18,7 @@ api.info("asd").then(function(resp) {
 ```json
 {
     "message": "Lavaboom API",
-    "docs_url": "http://lavaboom.readme.io/",
+    "docs_url": "https://docs.lavaboom.io/",
     "version": "v0"
 }
 ```
@@ -27,10 +27,10 @@ Welcome to the Lavaboom API documentation. This is the API used by the official 
 
 There are multiple endpoints for you to use:
 
-| Name | API version     | URL                      | Public |
-|:-----|:----------------|:-------------------------|:-------|
-| prod | _(not running)_ | http://api.lavaboom.com/ | Yes    |
-| dev  | v0              | http://api.lavaboom.io/  | No     |
+| Name | API version     | URL                       | Public |
+|:-----|:----------------|:--------------------------|:-------|
+| prod | _(not running)_ | https://api.lavaboom.com/ | Yes    |
+| dev  | v0              | https://api.lavaboom.io/  | No     |
 
 Please note that any non-production API request must contain a special `X-Lavaboom-Key` token to be authorized.
 
