@@ -10,6 +10,14 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.contacts.list().then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -59,6 +67,21 @@ Content-Length: 175
     "version_minor": 0,
     "pgp_fingerprints": ["fingerprint"]
 }
+```
+
+```javascript
+api.contacts.create({
+    "data": "<encrypted PGP blob>",
+    "name": "John Doe",
+    "encoding": "json",
+    "version_major": 1,
+    "version_minor": 0,
+    "pgp_fingerprints": ["fingerprint"]
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json
@@ -111,6 +134,14 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.contacts.get("<id>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -153,6 +184,16 @@ Content-Length: 27
 {
     "name": "John Does"
 }
+```
+
+```javascript
+api.contacts.update("<id>", {
+    "name": "John Doe"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json
@@ -202,6 +243,14 @@ DELETE /contacts/<id> HTTP/1.1
 User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
+```
+
+```javascript
+api.contacts.delete("<id>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json

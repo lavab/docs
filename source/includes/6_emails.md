@@ -9,6 +9,16 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.emails.list({
+    "sort": "+date_created"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -71,6 +81,19 @@ Content-Length: 8
 }
 ```
 
+```javascript
+api.emails.create({
+    "to": "johndoe@inferiormail.com",
+    "subject": "Lavaboom master race!",
+    "is_encrypted": false,
+    "body": "Check out this cool new email service!"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -116,6 +139,14 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.emails.get("<id>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -157,6 +188,14 @@ DELETE /emails/<id> HTTP/1.1
 User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
+```
+
+```javascript
+api.emails.delete("<id>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json

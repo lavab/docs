@@ -1,5 +1,6 @@
 ---
 language_tabs:
+  - javascript
   - http
 
 toc_footers:

@@ -9,11 +9,34 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.tokens.getCurrent().then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
+```javascript
+api.tokens.get("<id>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
-    "created": "<RFC3339Nano date>",
-    "expires": "<RFC3339Nano date>"
+    "token": {
+        "id": "<id>",
+        "date_created": "<RFC3339Nano date>",
+        "date_modified":" <RFC3339Nano date>",
+        "name": "Auth token expiring on <RFC3339 date>",
+        "owner": "<account id>",
+        "expiry_date": "<RFC3339Nano date>",
+        "type": "auth"
+    }
 }
 ```
 
@@ -43,6 +66,18 @@ Content-Length: 94
     "password": "<sha3-256(fancypassword)>",
     "type": "auth"
 }
+```
+
+```javascript
+api.tokens.create({
+    "type": "auth",
+    "username": "johndoe",
+    "password": "<sha3-256(fancypassword)>"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json
@@ -86,6 +121,22 @@ DELETE /tokens HTTP/1.1
 User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
+```
+
+```javascript
+api.tokens.deleteCurrent().then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
+```javascript
+api.tokens.delete("<id>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json

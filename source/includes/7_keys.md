@@ -10,10 +10,35 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.keys.list("<username>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
-    "keys": ["<armor-encoded public PGP key>"]
+    "keys": [
+        {
+            "id": "<fingerprint>",
+            "date_created": "<RFC3339Nano date>",
+            "date_modified": "<RFC3339Nano date>",
+            "name": "<short name describing the key>",
+            "owner": "<user id>",
+            "expiry_date": null,
+            "headers": {},
+            "algorithm": "<key's algorithm>",
+            "length": "<key's bit length>",
+            "key": "<armored key>",
+            "key_id": "<key id>",
+            "key_id_short": "<short key id>",
+            "reliability": 0,
+            "master_key": ""
+        }
+    ]
 }
 ```
 
@@ -40,6 +65,14 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.keys.get("<fingerprint>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -64,10 +97,33 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.keys.get("<fingerprint>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
-    "key": "<armor-encoded public PGP key>"
+    "key": {
+        "id": "<fingerprint>",
+        "date_created": "<RFC3339Nano date>",
+        "date_modified": "<RFC3339Nano date>",
+        "name": "<short name describing the key>",
+        "owner": "<user id>",
+        "expiry_date": null,
+        "headers": {},
+        "algorithm": "<key's algorithm>",
+        "length": "<key's bit length>",
+        "key": "<armored key>",
+        "key_id": "<key id>",
+        "key_id_short": "<short key id>",
+        "reliability": 0,
+        "master_key": ""
+    }
 }
 ```
 
@@ -94,11 +150,34 @@ Content-Length: 47
 }
 ```
 
+```javascript
+api.keys.create("<key>").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
     "message": "A new key has been successfully inserted",
-    "key": "<armor-encoded public PGP key>"
+    "key": {
+        "id": "<fingerprint>",
+        "date_created": "<RFC3339Nano date>",
+        "date_modified": "<RFC3339Nano date>",
+        "name": "<short name describing the key>",
+        "owner": "<user id>",
+        "expiry_date": null,
+        "headers": {},
+        "algorithm": "<key's algorithm>",
+        "length": "<key's bit length>",
+        "key": "<armored key>",
+        "key_id": "<key id>",
+        "key_id_short": "<short key id>",
+        "reliability": 0,
+        "master_key": ""
+    }
 }
 ```
 

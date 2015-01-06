@@ -7,6 +7,14 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.info("asd").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "message": "Lavaboom API",
@@ -25,3 +33,7 @@ There are multiple endpoints for you to use:
 | dev  | v0              | http://api.lavaboom.io/  | No     |
 
 Please note that any non-production API request must contain a special `X-Lavaboom-Key` token to be authorized.
+
+Available client libraries:
+
+ * [JavaScript](https://github.com/lavab/api-client-js)

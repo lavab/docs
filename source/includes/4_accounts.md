@@ -13,8 +13,20 @@ Content-Length: 93
 {
     "username": "johndoe",
     "password": "<sha3-256(fancypassword)>",
-    "token": "valid password"
+    "token": "valid invite token"
 }
+```
+
+```javascript
+api.accounts.create.invited({
+    "username": "johndoe",
+    "password": "<sha3-256(fancypassword)>",
+    "token": "valid invite token"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json
@@ -65,6 +77,18 @@ Content-Length: 100
     "password": "<sha3-256(fancypassword)>",
     "alt_email": "johndoe@gmail.com"
 }
+```
+
+```javascript
+api.accounts.create.classic({
+    "username": "johndoe",
+    "password": "<sha3-256(fancypassword)>",
+    "email": "johndoe@gmail.com"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json
@@ -118,6 +142,16 @@ Content-Length: 40
 }
 ```
 
+```javascript
+api.accounts.reserve.queue({
+    "email": "johndoe@gmail.com"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -159,6 +193,17 @@ Content-Length: 67
 }
 ```
 
+```javascript
+api.accounts.reserve.username({
+    "username": "johndoe",
+    "email": "johndoe@gmail.com"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -191,6 +236,14 @@ GET /accounts/me HTTP/1.1
 User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
+```
+
+```javascript
+api.accounts.get("me").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json
@@ -232,6 +285,17 @@ Content-Length: 94
     "alt_email": "johndoe2@gmail.com",
     "current_password": "<sha3-256(fancypassword)>"
 }
+```
+
+```javascript
+api.accounts.update("me", {
+    "alt_email": "johndoe2@gmail.com",
+    "current_password": "<sha3-256(fancypassword)>"
+}).then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json
@@ -277,6 +341,14 @@ Accept: application/json
 Host: api.lavaboom.io
 ```
 
+```javascript
+api.accounts.delete("me").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
+```
+
 ```json
 {
     "success": true,
@@ -302,6 +374,14 @@ POST /accounts/me/wipe-data HTTP/1.1
 User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
+```
+
+```javascript
+api.accounts.wipeData("me").then(function(resp) {
+    console.log(resp);
+}).catch(function{err} {
+    console.log(err);
+})
 ```
 
 ```json
