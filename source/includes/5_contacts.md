@@ -1,4 +1,3 @@
-
 # Contacts
 
 ## List all contacts
