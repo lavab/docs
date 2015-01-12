@@ -35,6 +35,16 @@ api.labels.list().then(function(resp) {
 }
 ```
 
+<aside class="notice">Requires authentication.</aside>
+
+### Definition
+
+`GET /labels`
+
+### Description
+
+Returns all labels owned by the user.
+
 ## Get a label
 
 ```http
@@ -67,6 +77,16 @@ api.labels.get("<id>").then(function(resp) {
     }
 }
 ```
+
+<aside class="notice">Requires authentication.</aside>
+
+### Definition
+
+`GET /labels/:id`
+
+### Description
+
+Retrieves a label by its ID.
 
 ## Create a new label
 
@@ -147,6 +167,16 @@ api.labels.delete("<id>").then(function(resp) {
     "success": true
 }
 ```
+
+<aside class="notice">Requires authentication.</aside>
+
+### Definition
+
+`DELETE /labels/:id`
+
+### Description
+
+Deletes specified label.
 
 ## Update a label
 
