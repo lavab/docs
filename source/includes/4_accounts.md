@@ -67,7 +67,7 @@ User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
 Content-Type: application/json
-Content-Length: 100
+Content-Length: 66
 
 {
     "username": "johndoe",
@@ -105,62 +105,12 @@ token's validity.
 
 ### Fields
 
-|   Key    |  Type  |              Description              |
-| :------- | :----- | :------------------------------------ |
-| username | string | The desired username for the account. |
-| token    | string | Token to validate.                    |
+|   Key    |  Type  |     Description      |
+| :------- | :----- | :------------------- |
+| username | string | Name of the account. |
+| token    | string | Token to validate.   |
 
-## Queue for beta
-
-```http
-POST /accounts HTTP/1.1
-User-Agent: LavaboomClient/1.0.0
-Accept: application/json
-Host: api.lavaboom.io
-Content-Type: application/json
-Content-Length: 40
-
-{
-    "alt_email": "johndoe@gmail.com"
-}
-```
-
-```javascript
-api.accounts.reserve.queue({
-    "email": "johndoe@gmail.com"
-}).then(function(resp) {
-    console.log(resp);
-}).catch(function{err} {
-    console.log(err);
-})
-```
-
-```json
-{
-    "success": true,
-    "message": "Reserved an account."
-}
-```
-
-<aside class="warning">Invitation emails are not implemented yet!</aside>
-
-### Definition
-
-`POST /accounts`
-
-### Description
-
-During the closed beta, a user can request an invite to the service. An account
-isn't created, but the `alt_email` is appended to the queue. Then, when the
-user's turn comes, they get an email with an invitation token.
-
-### Fields
-
-| Key       | Type   | Description                                       |
-|:----------|:-------|:--------------------------------------------------|
-| alt_email | string | An email address to send the invitation token to. |
-
-## Reserve a username for beta
+## Initiate the account's setup
 
 ```http
 POST /accounts HTTP/1.1
@@ -172,14 +122,16 @@ Content-Length: 67
 
 {
     "username": "johndoe",
-    "alt_email": "johndoe@gmail.com"
+    "token": "<verification token>",
+    "password": "<sha256(password)>"
 }
 ```
 
 ```javascript
-api.accounts.reserve.username({
+api.accounts.reserve.setup({
     "username": "johndoe",
-    "email": "johndoe@gmail.com"
+    "token": "<verification token>",
+    "password": "<sha256(password)>"
 }).then(function(resp) {
     console.log(resp);
 }).catch(function{err} {
@@ -190,11 +142,18 @@ api.accounts.reserve.username({
 ```json
 {
     "success": true,
-    "message": "Reserved an account."
+    "message": "Your account has been initialized successfully",
+    "account": {
+        "id": "<id>",
+        "date_created": "<RFC3339Nano date>",
+        "date_modified": "<RFC3339Nano date>",
+        "name": "johndoe",
+        "type": "beta",
+        "alt_email": "john@doe.org",
+        "status": "setup"
+    }
 }
 ```
-
-<aside class="warning">Username reservations might not be enforced in all cases.</aside>
 
 ### Definition
 
@@ -202,15 +161,16 @@ api.accounts.reserve.username({
 
 ### Description
 
-If username reservations are enabled in the API, a user can also reserve
-an account name. Process is almost the same as in the queue process.
+After user chooses a password, it is updated on the server using this endpoint.
+The password is checked against the list of 10,000 most used passwords.
 
 ### Fields
 
-| Key       | Type   | Description                                               |
-|:----------|:-------|:----------------------------------------------------------|
-| username  | string | The desired username that the user would like to reserve. |
-| alt_email | string | An email address to send the invitation token to.         |
+|    Key    |  Type  |                    Description                    |
+| :-------- | :----- | :------------------------------------------------ |
+| username  | string | Name of the account.                              |
+| token     | string | Verification token sent to user.                  |
+| password  | string | SHA256'd desired password to the account.         |
 
 ## Get own account information
 
@@ -318,7 +278,6 @@ Modifies current account's data.
 | factor_value     | list\<string\> | 2FA value, for example the static prefix of a YubiKey.                                                |
 | settings         | object         | Application data stored by the frontend.                                                              |
 | public_key       | string         | Fingerprint of the public key.                                                                        |
-|                  |                |                                                                                                       |
 
 ## Delete own account
 
