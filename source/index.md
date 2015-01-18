@@ -18,6 +18,7 @@ includes:
   - 9_labels
   - a_threads
   - b_tokens
+  - c_avatars
 
 search: true
 ---

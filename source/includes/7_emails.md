@@ -74,7 +74,7 @@ User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
 Content-Type: application/json
-Content-Length: 8
+Content-Length: 161
 
 {
     "to": "johndoe@inferiormail.com",
