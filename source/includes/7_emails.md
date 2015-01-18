@@ -31,6 +31,9 @@ api.emails.list({
             "owner": "<account id>",
             "kind": "received",
             "to": "johndoe@lavaboom.com",
+            "from": "broom@lavaboom.com",
+            "cc": [],
+            "bcc": [],
             "body": {
                 "encoding": "json",
                 "pgp_fingerprints": ["<PGP fingerprint>"],
@@ -113,22 +116,22 @@ Sends an email.
 
 ### Fields
 
-| Name                  | Type           | Description                                                |
-|:----------------------|:---------------|:-----------------------------------------------------------|
-| to                    | list\<string\> | Who should receive the email?                              |
-| bcc                   | list\<string\> | Hidden recipients                                          |
-| reply_to              | string         | Reply-to field's vlaue                                     |
-| thread_id             | string         | ID of the thread (can be null)                             |
-| subject               | string         | Subject of the email                                       |
-| is_encrypted          | bool           | Is body/preview encrypted?                                 |
-| body                  | string         | PGP-encrypted email body (or raw)                          |
-| body_version_major    | int            | Major version of the body's blob                           |
-| body_version_minor    | int            | Minor version of the body's blob                           |
-| preview               | string         | PGP-encrypted preview body (or raw)                        |
-| preview_version_major | int            | Major version of the preview's blob                        |
-| preview_version_minor | int            | Minor version of the preview's blob                        |
-| attachments           | list\<string\> | Attachment IDs                                             |
-| pgp_fingerprints      | list\<string\> | Fingerprints of keys used to encrypt the body and preview. |
+| Name                    | Type             | Description                                                                                                       |
+| :---------------------- | :--------------- | :---------------------------------------------------------------------------------------------------------------- |
+| to                      | list\<string\>   | Who should receive the email?                                                                                     |
+| cc                      | list\<string\>   | Carbon copy                                                                                                       |
+| bcc                     | list\<string\>   | Blind carbon copy                                                                                                 |
+| reply_to                | string           | Reply-to field's value                                                                                            |
+| thread_id               | string           | ID of the thread (can be null)                                                                                    |
+| subject                 | string           | Subject of the email                                                                                              |
+| body                    | string           | PGP-encrypted email body (or raw)                                                                                 |
+| body_version_major      | int              | Major version of the body's blob                                                                                  |
+| body_version_minor      | int              | Minor version of the body's blob                                                                                  |
+| preview                 | string           | PGP-encrypted preview body (or raw)                                                                               |
+| preview_version_major   | int              | Major version of the preview's blob                                                                               |
+| preview_version_minor   | int              | Minor version of the preview's blob                                                                               |
+| attachments             | list\<string\>   | Attachment IDs                                                                                                    |
+| pgp_fingerprints        | list\<string\>   | Fingerprints of keys used to encrypt the body and preview. If this field is empty, then the email is unencrypted. |
 
 ## Get an email
 
