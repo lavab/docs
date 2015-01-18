@@ -1,6 +1,6 @@
 # Accounts
 
-## Register using an invite
+## Reserve a username
 
 ```http
 POST /accounts HTTP/1.1
@@ -8,20 +8,18 @@ User-Agent: LavaboomClient/1.0.0
 Accept: application/json
 Host: api.lavaboom.io
 Content-Type: application/json
-Content-Length: 93
+Content-Length: 58
 
 {
     "username": "johndoe",
-    "password": "<sha3-256(fancypassword)>",
-    "token": "valid invite token"
+    "email": "john@doe.org"
 }
 ```
 
 ```javascript
-api.accounts.create.invited({
+api.accounts.create.register({
     "username": "johndoe",
-    "password": "<sha3-256(fancypassword)>",
-    "token": "valid invite token"
+    "email": "john@doe.org"
 }).then(function(resp) {
     console.log(resp);
 }).catch(function{err} {
@@ -32,14 +30,15 @@ api.accounts.create.invited({
 ```json
 {
     "success": true,
-    "message": "A new account was successfully created",
+    "message": "Your account has been added to the beta queue",
     "account": {
         "id": "<id>",
         "date_created": "<RFC3339Nano date>",
         "date_modified": "<RFC3339Nano date>",
         "name": "johndoe",
         "type": "beta",
-        "status": "invited"
+        "alt_email": "john@doe.org",
+        "status": "registered"
     }
 }
 ```
@@ -50,19 +49,17 @@ api.accounts.create.invited({
 
 ### Description
 
-The `invite` token is generated either by a Lavaboom employee or a premium user.
-Such request results in an instant creation of an account, that doesn't require
-any confirmation.
+Creates a new, non-verified account. Used for username reservations and
+invitation queueing during beta, account registration after release.
 
 ### Fields
 
-| Key      | Type   | Description                                                                                  |
-|:---------|:-------|:---------------------------------------------------------------------------------------------|
-| username | string | The desired username for the account.                                                        |
-| password | string | Chosen password, hashed using SHA3-256. It's checked against 10000 most used passwords list. |
-| token    | string | The invite token.                                                                            |
+|    Key    |  Type  |                          Description                          |
+| :-------- | :----- | :------------------------------------------------------------ |
+| username  | string | The desired username for the account.                         |
+| alt_email | string | Email to which an invitation/verification email will be sent. |
 
-## Register with email confirmation
+## Check token's validity
 
 ```http
 POST /accounts HTTP/1.1
@@ -74,16 +71,14 @@ Content-Length: 100
 
 {
     "username": "johndoe",
-    "password": "<sha3-256(fancypassword)>",
-    "alt_email": "johndoe@gmail.com"
+    "token": "<verification token>"
 }
 ```
 
 ```javascript
-api.accounts.create.classic({
+api.accounts.create.verify({
     "username": "johndoe",
-    "password": "<sha3-256(fancypassword)>",
-    "email": "johndoe@gmail.com"
+    "token:": "<verification token>"
 }).then(function(resp) {
     console.log(resp);
 }).catch(function{err} {
@@ -94,20 +89,9 @@ api.accounts.create.classic({
 ```json
 {
     "success": true,
-    "message": "A new account was successfully created, you should receive a confirmation email soon™.",
-    "account": {
-        "id": "<id>",
-        "date_created": "<RFC3339Nano date>",
-        "date_modified": "<RFC3339Nano date>",
-        "name": "johndoe",
-        "type": "beta",
-        "alt_email": "johndoe@gmail.com",
-        "status": "unverified"
-    }
+    "message": "Valid token was provided"
 }
 ```
-
-<aside class="warning">Confirmation emails are not implemented yet!</aside>
 
 ### Definition
 
@@ -115,17 +99,16 @@ api.accounts.create.classic({
 
 ### Description
 
-A user registers on the "Sign up" page. The account is created, but it's marked
-as unverified. An email is sent to the `alt_email` address that contains a link
-to the Lavaboom web client, which verifies the account and signs in the user.
+After user receives a token (either in a confirmation email or after being
+invited from the queue list), they open an API page that has to check the
+token's validity.
 
 ### Fields
 
-| Key       | Type   | Description                                                                                  |
-|:----------|:-------|:---------------------------------------------------------------------------------------------|
-| alt_email | string | An email address to send the confirmation token to.                                          |
-| username  | string | The desired username for the account.                                                        |
-| password  | string | Chosen password, hashed using SHA3-256. It's checked against 10000 most used passwords list. |
+|   Key    |  Type  |              Description              |
+| :------- | :----- | :------------------------------------ |
+| username | string | The desired username for the account. |
+| token    | string | Token to validate.                    |
 
 ## Queue for beta
 
@@ -326,11 +309,16 @@ Modifies current account's data.
 
 ### Fields
 
-| Key              | Type   | Description                                                                                           |
-|:-----------------|:-------|:------------------------------------------------------------------------------------------------------|
-| alt_email        | string | New alternative email                                                                                 |
-| current_password | string | Current password of the account                                                                       |
-| new_password     | string | The new desired password, hashed using SHA3-256. It's checked against 10000 most used passwords list. |
+|       Key        |      Type      |                                              Description                                              |
+| :--------------- | :------------- | :---------------------------------------------------------------------------------------------------- |
+| alt_email        | string         | New alternative email                                                                                 |
+| current_password | string         | Current password of the account. Only required if you want to update the password.                    |
+| new_password     | string         | The new desired password, hashed using SHA3-256. It's checked against 10000 most used passwords list. |
+| factor_type      | string         | Type of the 2FA. Only YubiKey is known to work.                                                       |
+| factor_value     | list\<string\> | 2FA value, for example the static prefix of a YubiKey.                                                |
+| settings         | object         | Application data stored by the frontend.                                                              |
+| public_key       | string         | Fingerprint of the public key.                                                                        |
+|                  |                |                                                                                                       |
 
 ## Delete own account
 

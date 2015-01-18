@@ -117,12 +117,12 @@ Creates a new attachment, which is an encrypted blob of data.
 
 | Key              | Type           | Description                                                               |
 |:-----------------|:---------------|:--------------------------------------------------------------------------|
-| data             | string         | PGP-encrypted attachment data                                                |
-| name             | string         | Unencrypted name of the attachment                                           |
+| data             | string         | PGP-encrypted attachment data                                             |
+| name             | string         | Unencrypted name of the attachment                                        |
 | encoding         | string         | Encrypted blob's encoding (for example `json`)                            |
 | version_major    | int            | Major version of the encrypted blob                                       |
 | version_minor    | int            | Minor version of the data, different minor versions should be compatible. |
-| pgp_fingerprints | list\<string\> | PGP fingerprints used to encode a attachment                                 |
+| pgp_fingerprints | list\<string\> | PGP fingerprints used to encode a attachment                              |
 
 ## Get a attachment
 
