@@ -30,7 +30,8 @@ There are multiple endpoints for you to use:
 | Name | API version     | URL                       | Public |
 |:-----|:----------------|:--------------------------|:-------|
 | prod | _(not running)_ | https://api.lavaboom.com/ | Yes    |
-| dev  | v0              | https://api.lavaboom.io/  | No     |
+| staging  | v0.x              | https://api.lavaboom.io/  | No     |
+| dev  | v0.x              | https://api.lavaboom.co/  | No     |
 
 Please note that any non-production API request must contain a special `X-Lavaboom-Key` token to be authorized.
 
