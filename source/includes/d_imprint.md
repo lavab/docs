@@ -10,4 +10,4 @@
 * DE296183720
 * Tel. +49-221-1653159-0
 * Fax: +49-221-1653159-9
-* team<at>lavaboom.com
+* team< at >lavaboom.com
