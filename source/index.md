@@ -4,7 +4,7 @@ language_tabs:
   - http
 
 toc_footers:
-  - © 2014 Lavaboom GmbH
+  - © 2015 Lavaboom GmbH
 
 includes:
   - 1_introduction
@@ -19,6 +19,7 @@ includes:
   - a_threads
   - b_tokens
   - c_avatars
+  - d_imprint
 
 search: true
 ---
